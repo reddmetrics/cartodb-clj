@@ -19,35 +19,9 @@
    (string? x) (str "'" x "'")
    :else x))
 
-(defn select*
-  [table & xs]
-  (if (vector? (last xs))
-    (let [tbls (interpose ", " (map #(sqlize %) (conj (butlast xs) table)))
-          cols (str-utils/str-join "," (map #(sqlize %) (last xs)))]
-      (apply str "SELECT " cols " FROM " tbls))
-    (let [tbls (interpose ", " (map #(sqlize %) (conj xs table)))]
-      (apply str "SELECT * FROM " tbls))))
-
-(defmacro select
-  [table & xs]
-  `(let [~'as (fn[name# col#] (str (sqlize col#) " AS " (sqlize name#)))]
-     (select* ~table ~@xs)))
-
 (defn sql-exp
   [op p1 p2]
   (str (sqlize p1) " " op " " (sqlize p2)))
-
-(defmacro filter-sql
-  [pred query]
-  `(let [~'and  (fn[& xs#] (apply str (interpose " AND " xs#)))
-         ~'or   (fn[& xs#] (apply str (interpose " OR " xs#)))
-         ~'=    (fn[x# y#] (sql-exp "=" x# y#))
-         ~'>    (fn[x# y#] (sql-exp ">" x# y#))
-         ~'<    (fn[x# y#] (sql-exp "<" x# y#))
-         ~'like (fn[x# y#] (sql-exp "like" x# y#))
-         ~'in   (fn[x# xs#]
-                (str (sqlize x#) " IN (" (apply str (interpose ", " xs#)) ")"))]
-     (apply str ~query " WHERE " ~pred)))
 
 (defn cartodb-collection [account sql]
   (let [base (url-base account)]
