@@ -1,4 +1,4 @@
-(ns cartodb-clj.core
+(ns cartodb.client
   (:use [cascalog.api]
         [clojure.data.json :only [read-json]])
   (:require [clojure.contrib.str-utils :as str-utils]

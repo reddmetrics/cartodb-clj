@@ -1,4 +1,4 @@
-(ns cartodb-clj.test.core
+(ns cartodb.test.client
   (:use [cartodb-clj.core] :reload)
   (:use [midje sweet cascalog]))
 
