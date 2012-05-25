@@ -12,7 +12,7 @@
   (let [api-sql ".cartodb.com/api/v2/sql"]
     (str "http://" account api-sql)))
 
-(defn- sqlize
+(defn sqlize
   [x]
   (cond
    (keyword? x) (str-utils/re-sub #"\/" "." (str-utils/re-sub #"^:" "" (str x)))
@@ -33,7 +33,7 @@
   `(let [~'as (fn[name# col#] (str (sqlize col#) " AS " (sqlize name#)))]
      (select* ~table ~@xs)))
 
-(defn- sql-exp
+(defn sql-exp
   [op p1 p2]
   (str (sqlize p1) " " op " " (sqlize p2)))
 
