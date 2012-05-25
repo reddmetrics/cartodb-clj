@@ -5,9 +5,6 @@
             [clj-http.client :as client]
             [cheshire.core :as json]))
 
-;; Much of this namespace has been shamelessly lifted from the blog
-;; post found [here](http://goo.gl/4m69q).  
-
 (defn url-base [account]
   (let [api-sql ".cartodb.com/api/v2/sql"]
     (str "http://" account api-sql)))
@@ -30,10 +27,12 @@
          read-json
          :rows)))
 
-(defn grab-forma-pts [n]
-  (let [table (select :forma_cdm [:x :y])
-        cdb-data (cartodb-collection "wri-01" table)
-        grab-data (fn [key-vec] (map (comp read-string key-vec) cdb-data))]
-    (map (partial take n)
-         (map grab-data [:x :y]))))
+
+
+;; (defn grab-forma-pts [n]
+;;   (let [table (select :forma_cdm [:x :y])
+;;         cdb-data (cartodb-collection "wri-01" table)
+;;         grab-data (fn [key-vec] (map (comp read-string key-vec) cdb-data))]
+;;     (map (partial take n)
+;;          (map grab-data [:x :y]))))
 
