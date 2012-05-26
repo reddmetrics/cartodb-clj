@@ -1,9 +1,8 @@
 (ns cartodb.test.client
-  (:use [cartodb-clj.core] :reload)
+  (:use [cartodb.client] :reload)
   (:use [midje sweet cascalog]))
 
 (fact
-  (let [table (select :forma_cdm [:x :y])]
-    (filter-sql (and (> :prob 50) (= :cntry "Indonesia")) table)
-    => "SELECT x,y FROM forma_cdm WHERE prob > 50 AND cntry = 'Indonesia'"))
+  (let [sql "SELECT x,y FROM forma_cdm"]
+    (count (cartodb-collection "wri-01" sql)) => 200009))
 
