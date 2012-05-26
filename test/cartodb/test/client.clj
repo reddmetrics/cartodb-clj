@@ -3,6 +3,8 @@
   (:use [midje sweet cascalog]))
 
 (fact
-  (let [sql "SELECT x,y FROM forma_cdm"]
-    (count (cartodb-collection "wri-01" sql)) => 200009))
+  (let [sql (sql-stmt "SELECT x,y"
+                      "FROM forma_cdm"
+                      "LIMIT 10")]
+    (count (cartodb-collection "wri-01" sql)) => 10))
 
