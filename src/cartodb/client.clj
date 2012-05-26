@@ -27,8 +27,6 @@
          read-json
          :rows)))
 
-
-
 ;; (defn grab-forma-pts [n]
 ;;   (let [table (select :forma_cdm [:x :y])
 ;;         cdb-data (cartodb-collection "wri-01" table)
