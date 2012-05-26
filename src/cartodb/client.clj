@@ -27,10 +27,16 @@
          read-json
          :rows)))
 
-;; (defn grab-forma-pts [n]
-;;   (let [table (select :forma_cdm [:x :y])
-;;         cdb-data (cartodb-collection "wri-01" table)
-;;         grab-data (fn [key-vec] (map (comp read-string key-vec) cdb-data))]
-;;     (map (partial take n)
-;;          (map grab-data [:x :y]))))
+(defn sql-stmt
+  [& strs]
+  (apply str (interpose " " strs)))
+
+(defn grab-forma-pts
+  [n]
+  (let [sql (sql-stmt "SELECT x,y"
+                      "FROM forma_cdm"
+                      "LIMIT" n)
+        cdb-data (cartodb-collection "wri-01" sql)
+        grab-data (fn [key-vec] (map (comp read-string key-vec) cdb-data))]
+    (map grab-data [:x :y])))
 
