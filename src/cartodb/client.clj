@@ -1,7 +1,7 @@
 (ns cartodb.client
   (:use [cascalog.api]
         [clojure.data.json :only [read-json]])
-  (:require [clojure.contrib.str-utils :as str-utils]
+  (:require [clojure.contrib.str-utils :as s]
             [clj-http.client :as client]
             [cheshire.core :as json]))
 
@@ -17,10 +17,11 @@
 
 (defn sqlize
   "returns a string that is compatible with SQL queries, based on
-  clojure-style inputs (e.g., keywords and strings)."
+  clojure-style inputs (e.g., keywords and strings). Shamelessly
+  lifted from the blog post found [here](http://goo.gl/4m69q)."
   [x]
   (cond
-   (keyword? x) (str-utils/re-sub #"\/" "." (str-utils/re-sub #"^:" "" (str x)))
+   (keyword? x) (s/re-sub #"\/" "." (s/re-sub #"^:" "" (str x)))
    (string? x) (str "'" x "'")
    :else x))
 
@@ -50,10 +51,10 @@
   Indonesia, with probability greater than 50 (the only points stored
   in the `forma_cdm` table)."
   [n]
-  (let [sql (sql-stmt "SELECT x,y"
-                      "FROM forma_cdm"
-                      "LIMIT" n)
+  (let [sql (str-append "SELECT x,y"
+                        "FROM forma_cdm"
+                        "LIMIT" n)
         cdb-data (cartodb-collection "wri-01" sql)
-        grab-data (fn [key-vec] (map (comp read-string key-vec) cdb-data))]
+        grab-data (fn [k] (map (comp read-string k) cdb-data))]
     (map grab-data [:x :y])))
 
