@@ -1,6 +1,5 @@
 (ns cartodb.client
-  (:use [cascalog.api]
-        [clojure.data.json :only [read-json]])
+  (:use [clojure.data.json :only [read-json]])
   (:require [clojure.contrib.str-utils :as s]
             [clj-http.client :as client]
             [cheshire.core :as json]))
@@ -54,7 +53,8 @@
   (let [sql (str-append "SELECT x,y"
                         "FROM forma_cdm"
                         "LIMIT" n)
-        cdb-data (cartodb-collection "wri-01" sql)
-        grab-data (fn [k] (map (comp read-string k) cdb-data))]
-    (map grab-data [:x :y])))
+        cdb-data (cartodb-collection "wri-01" sql)]
+    (map (comp vec (partial map read-string) vals)
+         cdb-data)))
+
 
