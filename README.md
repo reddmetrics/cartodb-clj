@@ -11,7 +11,9 @@ Fire up your REPL!
 ```clojure
 (use `cartodb.cient)
 (query "vertnet" "SELECT dwca_url FROM publishers LIMIT 3")
-[{:dwca_url "http://vertnet.nhm.ku.edu:8080/ipt/archive.do?r=hsu_wildlife_birds"} {:dwca_url "http://vertnet.nhm.ku.edu:8080/ipt/archive.do?r=dmnh_birds"} {:dwca_url "http://vertnet.nhm.ku.edu:8080/ipt/archive.do?r=hsu_wildlife_birds"}]
+[{:dwca_url "http://vertnet.nhm.ku.edu:8080/ipt/archive.do?r=hsu_wildlife_birds"} 
+ {:dwca_url "http://vertnet.nhm.ku.edu:8080/ipt/archive.do?r=dmnh_birds"} 
+ {:dwca_url "http://vertnet.nhm.ku.edu:8080/ipt/archive.do?r=hsu_wildlife_birds"}]
 ```
 
 ## License
