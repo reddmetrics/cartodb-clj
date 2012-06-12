@@ -29,7 +29,7 @@
   [op p1 p2]
   (str (sqlize p1) " " op " " (sqlize p2)))
 
-(defn cartodb-collection
+(defn query
   "returns CartoDB records based on the `sql` query (input as a
   string) as an array of clojure dictionaries, with the columns as
   keys and the values as strings."
@@ -53,7 +53,7 @@
   (let [sql (str-append "SELECT x,y"
                         "FROM forma_cdm"
                         "LIMIT" n)
-        cdb-data (cartodb-collection "wri-01" sql)]
+        cdb-data (query "wri-01" sql)]
     (map (comp vec (partial map read-string) vals)
          cdb-data)))
 

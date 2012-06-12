@@ -4,6 +4,8 @@
   :repositories {"conjars" "http://conjars.org/repo/"}
   :marginalia {:javascript ["mathjax/MathJax.js"]}
   :javac-options {:debug "true" :fork "true"}
+  :plugins [[swank-clojure "1.4.0-SNAPSHOT"]
+            [lein-clojars "0.9.0"]]
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/math.numeric-tower "0.0.1"]
                  [incanter/incanter-core "1.3.0-SNAPSHOT"]
