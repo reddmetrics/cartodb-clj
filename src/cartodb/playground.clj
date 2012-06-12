@@ -1,12 +1,9 @@
 (ns cartodb.playground
   (:use [cascalog.api]
-        [cartodb.client]))
+        [cartodb.client]
+        [cartodb.cluster])
+  (:require [incanter.core :as i]))
 
-(def my-src (vec (grab-forma-pts 100)))
-
-(defn casc-test []
-  (?<- (stdout)
-       [?x ?y]
-       (my-src ?x ?y)
-       (< ?x 50149)
-       (> ?y 31882)))
+(defn casc-test [n]
+  (let [src (vec (grab-forma-pts n))]
+    (??<- [?x ?y] (src ?x ?y))))
