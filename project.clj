@@ -2,7 +2,9 @@
   :description "Access CartoDB data from Clojure"
   :resources-path "resources"
   :repositories {"conjars" "http://conjars.org/repo/"}
-  :marginalia {:javascript ["mathjax/MathJax.js"]}
+  :jvm-opts ["-XX:MaxPermSize=128M"
+             "-XX:+UseConcMarkSweepGC"
+             "-Xms1024M" "-Xmx1048M" "-server"]
   :javac-options {:debug "true" :fork "true"}
   :plugins [[swank-clojure "1.4.0-SNAPSHOT"]
             [lein-clojars "0.9.0"]]
@@ -12,4 +14,4 @@
                  [cheshire "4.0.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [org.clojure/data.json "0.1.2"]]
-:dev-dependencies [[midje "1.4.0"]]))
+:dev-dependencies [[midje "1.4.0"]])
