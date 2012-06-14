@@ -1,5 +1,6 @@
 (defproject cartodb-clj "1.0.0-SNAPSHOT"
-  :description "Access CartoDB data from Clojure"
+  :description "Access CartoDB data from Clojure."
+  :source-path "src/clj"
   :resources-path "resources"
   :repositories {"conjars" "http://conjars.org/repo/"}
   :jvm-opts ["-XX:MaxPermSize=128M"
