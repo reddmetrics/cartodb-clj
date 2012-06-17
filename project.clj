@@ -8,8 +8,8 @@
             [lein-clojars "0.9.0"]]
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [clojure-csv/clojure-csv "2.0.0-alpha1"]
-                 [clj-http "0.4.1"]
+                 [clj-http "0.4.3"]
                  [cheshire "4.0.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [org.clojure/data.json "0.1.2"]]
-:dev-dependencies [[midje "1.4.0"]]))
+:dev-dependencies [[midje "1.4.0"]])
