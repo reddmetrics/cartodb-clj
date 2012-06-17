@@ -1,8 +1,11 @@
 (defproject cartodb-clj "1.0.0-SNAPSHOT"
-  :description "Access CartoDB data from Clojure"
+  :description "Access CartoDB data from Clojure."
+  :source-path "src/clj"
   :resources-path "resources"
   :repositories {"conjars" "http://conjars.org/repo/"}
-  :marginalia {:javascript ["mathjax/MathJax.js"]}
+  :jvm-opts ["-XX:MaxPermSize=128M"
+             "-XX:+UseConcMarkSweepGC"
+             "-Xms1024M" "-Xmx1048M" "-server"]
   :javac-options {:debug "true" :fork "true"}
   :plugins [[swank-clojure "1.4.0-SNAPSHOT"]
             [lein-clojars "0.9.0"]]
