@@ -2,6 +2,7 @@
   :description "Access CartoDB data from Clojure."
   :source-path "src/clj"
   :resources-path "resources"
+  :dev-resources-path "dev"
   :repositories {"conjars" "http://conjars.org/repo/"}
   :jvm-opts ["-XX:MaxPermSize=128M"
              "-XX:+UseConcMarkSweepGC"
