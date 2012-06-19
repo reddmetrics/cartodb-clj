@@ -1,6 +1,6 @@
 # About
 
-The cartodb-clj project is a Clojure client for [CartoDB](http://cartodb.com). It's available on [Clojars](https://clojars.org/cartodb-clj) as a dependency:
+A simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. It's available on [Clojars](https://clojars.org/cartodb-clj) as a dependency for both Leinigen and Maven:
 
 ### Leiningen
 
