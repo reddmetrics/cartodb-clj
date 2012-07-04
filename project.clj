@@ -15,14 +15,5 @@
                  [clj-http "0.4.3"]
                  [cheshire "4.0.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
-<<<<<<< HEAD
-                 [org.clojure/data.json "0.1.2"]
-                 [org.apache.mahout/mahout-core "0.5"]
-                 [org.apache.mahout/mahout-math "0.5"]
-                 [org.apache.mahout/mahout-utils "0.5"]]
-  :dev-dependencies [[org.apache.hadoop/hadoop-core "0.20.2-dev"]
-                     [midje-cascalog "0.4.0"]])
-=======
                  [org.clojure/data.json "0.1.2"]]
 :dev-dependencies [[midje "1.4.0"]])
->>>>>>> upstream/develop
