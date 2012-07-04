@@ -14,5 +14,6 @@
                  [clj-http "0.4.3"]
                  [cheshire "4.0.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
-                 [org.clojure/data.json "0.1.2"]]
+                 [org.clojure/data.json "0.1.2"]
+                 [cartodb-java-client "1.0.0"]]
 :dev-dependencies [[midje "1.4.0"]])
