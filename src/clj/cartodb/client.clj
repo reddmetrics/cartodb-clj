@@ -3,8 +3,7 @@
   (:use [clojure.data.json :only [read-json]])
   (:require [clojure.contrib.str-utils :as s]
             [clj-http.client :as client]
-            [cheshire.core :as json]
-            [clojure.java.io :as io])
+            [cheshire.core :as json])
   (:import [com.cartodb.impl SecuredCartoDBClient]))
 
 (defn- oauth-get
@@ -14,10 +13,10 @@
         body (.executeQuery client sql)]
     body))
 
-(defn- get
+(defn- get 
   "Query CartoDB with supplied SQL and return response body."
-  [account sql api-key format host]
-  (let [url (str "http://" account "." host "/api/v2/sql")
+  [account sql api-key format host api-version]
+  (let [url (str "http://" account "." host "/api/" api-version "/sql")
         params {:query-params {"q" sql "format" format}}
         params (if api-key (assoc-in params [:api_key] api-key) params)
         response (client/get url params)
@@ -26,12 +25,12 @@
 
 (defn query
   "Executes a CartoDB query and return results in specified format."
-  [sql & {:keys [account api-key format host oauth-creds] 
-          :or {account nil api-key nil format "json" host "cartodb.com"
-               oauth-creds nil}}]
-    (let [body (if oauth-creds
-                 (oauth-get sql format oauth-creds)
-                 (get account sql api-key format host))]          
+  [sql account & {:keys [api-key format host oauth api-version] 
+          :or {api-key nil format "json" host "cartodb.com"
+               oauth-creds nil api-version "v2"}}]
+    (let [body (if oauth
+                 (oauth-get sql format oauth)
+                 (get account sql api-key format host api-version))]          
       (try
         (if (or (= format "json") (= format "geojson"))
           (read-json body)
