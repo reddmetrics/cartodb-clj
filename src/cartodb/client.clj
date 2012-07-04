@@ -24,11 +24,6 @@
    (string? x) (str "'" x "'")
    :else x))
 
-(defn sql-exp
-  "returns a SQL expression."
-  [op p1 p2]
-  (str (sqlize p1) " " op " " (sqlize p2)))
-
 (defn query
   "returns CartoDB records based on the `sql` query (input as a
   string) as an array of clojure dictionaries, with the columns as
