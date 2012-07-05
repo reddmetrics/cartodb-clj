@@ -1,17 +1,21 @@
 (ns cartodb.client
   "This namespace provides a client API to CartoDB."
-  (:use [clojure.data.json :only [read-json]])
-  (:require [clojure.contrib.str-utils :as s]
-            [clj-http.client :as client]
+  (:use [clojure.data.json :only [read-json]]
+        [cartodb.utils])
+  (:require [clj-http.client :as client]
             [cheshire.core :as json])
-  (:import [com.cartodb.impl SecuredCartoDBClient]))
+  (:import [com.cartodb.impl CartoDBClient SecuredCartoDBClient]))
 
-(defn- oauth-get
-  "Query CartoDB with supplied SQL and OAuth credentials and return response body."
-  [sql format {:keys [key secret user password]}]
+(defn- oauth-execute
+  "Execute an SQL command with supplied OAuth credentials; returns a
+  response body by default for queries.  Specify `:return false` to
+  insert rows."
+  [sql {:keys [key secret user password]}
+   & {:keys [return] :or {return true}}]
   (let [client (SecuredCartoDBClient. user password key secret)
         body (.executeQuery client sql)]
-    body))
+    (if (true? return)
+      body)))
 
 (defn- get 
   "Query CartoDB with supplied SQL and return response body."
@@ -29,7 +33,7 @@
           :or {api-key nil format "json" host "cartodb.com"
                oauth-creds nil api-version "v2"}}]
     (let [body (if oauth
-                 (oauth-get sql format oauth)
+                 (oauth-execute sql oauth)
                  (get account sql api-key format host api-version))]          
       (try
         (if (or (= format "json") (= format "geojson"))
@@ -37,7 +41,22 @@
           body)
         (catch Exception e (str "Error: " e " Body: " body)))))
 
-(defn sql-builder
-  "Return space-separated query."
-  [& strs]
-  (apply str (interpose " " strs)))
+(defn oauth-put
+  "Execute an authenticated SQL command and suppressing any
+  server-side response."
+  [sql oauth]
+  (oauth-execute sql oauth :return false))
+
+(defn insert-rows
+  "Insert an arbitrary number of rows into a pre-existing table."
+  [oauth table column-names & rows]
+  (let [sql (apply insert-rows-cmd table column-names rows)]
+    (oauth-put sql oauth)))
+
+(defn delete-all
+  "Delete all rows from the specified table.  CAREFUL with this."
+  [oauth table]
+  (let [sql (str "DELETE FROM " table)]
+    (oauth-execute sql oauth :return false)))
+
+
