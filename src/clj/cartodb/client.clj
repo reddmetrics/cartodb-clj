@@ -17,7 +17,7 @@
     (if (true? return)
       body)))
 
-(defn execute 
+(defn- execute 
   "Query CartoDB with supplied SQL and return response body."
   [account sql api-key format host api-version]
   (let [url (str "http://" account "." host "/api/" api-version "/sql")

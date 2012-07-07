@@ -3,7 +3,7 @@
 
 (defn sqlize
   "Returns a SQL-acceptable argument, depending on the data type.
-  Defaults to identity."
+  Defaults to identity.  See tests for example usage."
   [x]
   (cond
    (keyword? x) (s/re-sub #"\/" "." (s/re-sub #"^:" "" (str x)))
@@ -25,10 +25,15 @@
     (str "(" (apply str y) ")")))
 
 (defn insert-rows-cmd
-  "Returns an SQL statement for a very simple command to insert
-  multiple rows into the supplied table."
-  [table col-names & rows]
-  (let [cols (str "(" (apply str (interpose "," col-names)) ")")
+" Returns an SQL statement for a very simple command to insert
+  multiple rows into the supplied table.
+
+  Example Usage:
+  (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])
+"
+  [table col-keys & rows]
+  (let [col-names (map sqlize col-keys)
+        cols (str "(" (apply str (interpose "," col-names)) ")")
         prelude (str "INSERT INTO " table " " cols " VALUES ")]
     (str prelude (apply sql-builder (map vec->str rows)))))
 

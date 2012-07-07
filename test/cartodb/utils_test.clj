@@ -7,9 +7,16 @@ project."
   (:use [midje sweet]))
 
 (fact
+  (map sqlize ["a" 2 :b]) => '("'a'" 2 "b"))
+
+(fact
   (vec->str [2 "a" 4]) => "(2, 'a', 4)")
 
 (fact
   (let [strs (map vec->str [["a" 1] ["b" 2]])]
     strs => '("('a', 1)" "('b', 2)")
     (apply sql-builder strs) => "('a', 1), ('b', 2)"))
+
+(fact
+  (insert-rows-cmd "table" [:x :y] [2 3] [4 5])
+  => "INSERT INTO table (x,y) VALUES (2, 3), (4, 5)")
