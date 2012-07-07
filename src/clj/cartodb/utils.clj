@@ -32,8 +32,8 @@
   (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])
 "
   [table col-keys & rows]
-  (let [col-names (map sqlize col-keys)
-        cols (str "(" (apply str (interpose "," col-names)) ")")
+  (let [col-names (interpose "," (map sqlize col-keys))
+        cols (str "(" (apply str col-names) ")")
         prelude (str "INSERT INTO " table " " cols " VALUES ")]
     (str prelude (apply sql-builder (map vec->str rows)))))
 
