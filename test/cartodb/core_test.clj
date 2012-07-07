@@ -1,6 +1,6 @@
-(ns cartodb-test.client
+(ns cartodb-test.core
   "This namespace provides unit test coverage for the cartodb.client namespace."
-  (:use cartodb.client)
+  (:use cartodb.core)
   (:use [midje sweet]))
 
 (fact "Check sql-builder."

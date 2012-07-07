@@ -25,16 +25,13 @@
     (str "(" (apply str y) ")")))
 
 (defn insert-rows-cmd
-" Returns an SQL statement for a very simple command to insert
+  "Returns an SQL statement for a very simple command to insert
   multiple rows into the supplied table.
 
   Example Usage:
-  (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])
-"
+  (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])  "
   [table col-keys & rows]
   (let [col-names (interpose "," (map sqlize col-keys))
         cols (str "(" (apply str col-names) ")")
         prelude (str "INSERT INTO " table " " cols " VALUES ")]
     (str prelude (apply sql-builder (map vec->str rows)))))
-
-

@@ -1,4 +1,4 @@
-(ns cartodb.client
+(ns cartodb.core
   "This namespace provides a client API to CartoDB."
   (:use [clojure.data.json :only [read-json]]
         [cartodb.utils])
@@ -39,7 +39,3 @@
           (read-json body)
           body)
         (catch Exception e (str "Error: " e " Body: " body)))))
-
-
-
-
