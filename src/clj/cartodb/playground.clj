@@ -1,5 +1,5 @@
 (ns cartodb.playground
-  (:use [cartodb.client]
+  (:use [cartodb.core]
         [cartodb.utils]))
 
 ;; NOTE: Before you can run these commands, you'll need the following
