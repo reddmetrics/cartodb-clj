@@ -30,4 +30,4 @@
   (insert-rows creds 'clj_test' ['x' 'y'] [1 'y1'] [2 'y2'])"
   [oauth table column-names & rows]
   (let [sql (apply insert-rows-cmd table column-names rows)]
-    (oauth-execute sql oauth :return false))))
+    (oauth-execute sql oauth :return false)))
