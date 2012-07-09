@@ -10,16 +10,16 @@
   "Execute an SQL command with supplied OAuth credentials; returns a
   response body by default for queries.  Specify `:return false` to
   suppress response body."
-  [sql {:keys [key secret user password]}
+  [sql account {:keys [key secret password]}
    & {:keys [return] :or {return true}}]
-  (let [client (SecuredCartoDBClient. user password key secret)
+  (let [client (SecuredCartoDBClient. account password key secret)
         body (.executeQuery client sql)]
     (if (true? return)
       body)))
 
 (defn- execute 
   "Query CartoDB with supplied SQL and return response body."
-  [account sql api-key format host api-version
+  [sql account api-key format host api-version
    & {:keys [return] :or {return true}}]
   (let [url (str "http://" account "." host "/api/" api-version "/sql")
         params {:query-params {"q" sql "format" format}}
@@ -30,16 +30,12 @@
 
 (defn query
   "Executes a CartoDB query and return results in specified format."
-  [sql & {:keys [account api-key format host oauth api-version return] 
-          :or {account nil api-key nil format "json" host "cartodb.com"
-               oauth-creds nil api-version "v2" return true}}]
+  [sql account & {:keys [api-key format host oauth api-version return] 
+                  :or {api-key nil format "json" host "cartodb.com"
+                       oauth-creds nil api-version "v2" return true}}]
   (let [body (if oauth
                (oauth-execute sql oauth :return return)
-               (if-not (nil? account)
-                 (execute account sql api-key format host api-version :return return)
-                 (throw
-                  (Throwable. "Enter an account name for a public table
-                               or credentials for a private table."))))]          
+               (execute sql account api-key format host api-version :return return))]          
     (try
       (if (and
            (true? return)
