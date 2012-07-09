@@ -25,19 +25,19 @@ A simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. It
   (:use cartodb.client :as cdb))
 
 ;; Query a public table and get JSON results:
-(cdb/query "SELECT * FROM table" "user")
+(cdb/query "SELECT * FROM table" :account "user")
 
 ;; Query a public table using API v1 and get JSON results:
-(cdb/query "SELECT * FROM table" "user" :api-version "v1")
+(cdb/query "SELECT * FROM table" :account "user" :api-version "v1")
 
 ;; Query a public table and get GeoJSON results:
-(cdb/query "SELECT * FROM table" "user" :format "geojson")
+(cdb/query "SELECT * FROM table" :account "user" :format "geojson")
 
 ;; Query a public table and get CSV results:
-(cdb/query "SELECT * FROM table" "user" :format "csv")
+(cdb/query "SELECT * FROM table" :account "user" :format "csv")
 
 ;; Query a public table on your own host:
-(cdb/query "SELECT * FROM table" "user" :host "myserver.com")
+(cdb/query "SELECT * FROM table" :account "user" :host "myserver.com")
 
 ;; Query a private table with OAuth credentials:
 (def creds {:key "CARTODB_OAUTH_KEY",
@@ -45,7 +45,7 @@ A simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. It
             :user "CARTODB_USER",
             :password "CARTODB_PASSWORD"})
 
-(cdb/query "SELECT * FROM private_table" "user" :oauth creds)
+(cdb/query "SELECT * FROM private_table" :oauth creds)
 ```
 
 ## License
