@@ -1,21 +1,22 @@
 (ns cartodb-test.core
   "This namespace provides unit test coverage for the cartodb.client namespace."
-  (:use cartodb.core)
+  (:use [cartodb.core]
+        [cartodb.utils])
   (:use [midje sweet]))
 
 (fact "Check sql-builder."
-  (let [sql (sql-builder "SELECT x,y"
-                         "FROM forma_cdm"
-                         "LIMIT 10")]
-    (count (:rows (query "wri-01" sql))) => 10))
+  (let [sql (space-sep "SELECT x,y"
+                       "FROM forma_cdm"
+                       "LIMIT 10")]
+    (count (:rows (query sql :account "wri-01"))) => 10))
 
 (fact "Check CSV format."
   (let [sql "SELECT x,y,the_geom FROM forma_cdm LIMIT 1"]
-    (query "wri-01" sql :format "csv") => "x,y,the_geom\r\n49826,31489,"))
+    (query sql :account "wri-01" :format "csv") => "x,y,the_geom\r\n49826,31489,"))
 
 (fact "Check GeoJSON format."
   (let [sql "SELECT x,y,the_geom FROM forma_cdm LIMIT 1"]
-    (query "wri-01" sql :format "geojson") =>
+    (query sql :account "wri-01" :format "geojson") =>
     {:type "FeatureCollection",
      :features [{:type "Feature",
                  :properties {:x "49826", :y "31489"},
@@ -23,5 +24,5 @@
 
 (fact "Check JSON format."
   (let [sql "SELECT x,y,the_geom FROM forma_cdm LIMIT 1"]
-    (:rows (query "wri-01" sql :format "json")) =>
+    (:rows (query sql :account "wri-01" :format "json")) =>
     [{:x "49826", :y "31489", :the_geom nil}]))

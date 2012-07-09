@@ -17,17 +17,17 @@
   "Delete all rows from the specified table.  CAREFUL with this.
 
   Example usage:
-  (delete-all creds \"clj_test\")"
-  [oauth table]
-  (let [sql (str "DELETE FROM " table)]
-    (oauth-execute sql oauth :return false)))
+  (delete-all creds \"cartodbclj_test\")"
+  [creds table]
+  (let [sql (space-sep "DELETE FROM" table)]
+    (query sql :oauth creds :return false)))
 
 (defn insert-rows
   "Insert an arbitrary number of rows into a pre-existing table and
   suppress server-side response.
 
   Example usage:
-  (insert-rows creds 'clj_test' ['x' 'y'] [1 'y1'] [2 'y2'])"
-  [oauth table column-names & rows]
+  (insert-rows creds 'cartodbclj_test' [:x :y] [1 \"y1\"] [2 \"y2\"])"
+  [creds table column-names & rows]
   (let [sql (apply insert-rows-cmd table column-names rows)]
-    (oauth-execute sql oauth :return false)))
+    (query sql :oauth creds :return false)))

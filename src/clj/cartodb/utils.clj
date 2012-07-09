@@ -10,11 +10,17 @@
    (string? x) (str "'" x "'")
    :else x))
 
-(defn sql-builder
+(defn comma-sep
   "Returns a single string that is comprised of an arbitrary number of
   supplied strings, comma separated."
   [& strs]
   (apply str (interpose ", " strs)))
+
+(defn space-sep
+  "Returns a single string that is comprised of an arbitrary number of
+  supplied strings, comma separated."
+  [& strs]
+  (apply str (interpose " " strs)))
 
 (defn vec->str
   "Converts a Clojure persistent vector to a list that can be included
@@ -34,4 +40,4 @@
   (let [col-names (interpose "," (map sqlize col-keys))
         cols (str "(" (apply str col-names) ")")
         prelude (str "INSERT INTO " table " " cols " VALUES ")]
-    (str prelude (apply sql-builder (map vec->str rows)))))
+    (str prelude (apply comma-sep (map vec->str rows)))))
