@@ -36,7 +36,7 @@ two rows."
   suppress server-side response.
 
   Example usage:
-  (insert-rows creds \"cartodbclj_tes\"' [:x :y] [1 \"y1\"] [2 \"y2\"])"
+  (insert-rows creds \"cartodbclj_tes\" [:x :y] [1 \"y1\"] [2 \"y2\"])"
   [creds table column-names & rows]
   (let [sql (apply insert-rows-cmd table column-names rows)]
     (query sql :oauth creds :return false)))
