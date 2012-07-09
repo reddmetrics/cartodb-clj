@@ -12,7 +12,7 @@
   suppress response body."
   [sql account {:keys [key secret password]}
    & {:keys [return] :or {return true}}]
-  (let [client (SecuredCartoDBClient. user password key secret)
+  (let [client (SecuredCartoDBClient. account password key secret)
         body (.executeQuery client sql)]
     (if (true? return)
       body)))
@@ -35,7 +35,7 @@
                        oauth-creds nil api-version "v2" return true}}]
   (let [body (if oauth
                (oauth-execute sql oauth :return return)
-               (execute account sql api-key format host api-version :return return))]          
+               (execute sql account api-key format host api-version :return return))]          
     (try
       (if (and
            (true? return)
