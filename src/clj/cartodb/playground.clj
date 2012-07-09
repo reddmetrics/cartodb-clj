@@ -7,7 +7,6 @@ CartoDB table and then add rows to it.
 
 (def creds {:key \"CARTODB_OAUTH_KEY\"
             :secret \"CARTODB_OAUTH_SECRET\"
-            :user \"CARTODB_USER\"
             :password \"CARTODB_PASSWORD\"})
 
 NOTE: Before you can run these commands, you'll need the following
@@ -26,17 +25,17 @@ two rows."
   "Delete all rows from the specified table.  CAREFUL with this.
 
   Example usage:
-  (delete-all creds \"cartodbclj_test\")"
-  [creds table]
+  (delete-all \"wri-01\" creds \"cartodbclj_test\")"
+  [account creds table]
   (let [sql (space-sep "DELETE FROM" table)]
-    (query sql :oauth creds :return false)))
+    (query sql account :oauth creds :return false)))
 
 (defn insert-rows
   "Insert an arbitrary number of rows into a pre-existing table and
   suppress server-side response.
 
   Example usage:
-  (insert-rows creds \"cartodbclj_tes\" [:x :y] [1 \"y1\"] [2 \"y2\"])"
-  [creds table column-names & rows]
+  (insert-rows \"wri-01\" creds \"cartodbclj_test\" [:x :y] [1 \"y1\"] [2 \"y2\"])"
+  [account creds table column-names & rows]
   (let [sql (apply insert-rows-cmd table column-names rows)]
-    (query sql :oauth creds :return false)))
+    (query sql account :oauth creds :return false)))
