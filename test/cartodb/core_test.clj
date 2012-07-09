@@ -8,15 +8,15 @@
   (let [sql (space-sep "SELECT x,y"
                        "FROM forma_cdm"
                        "LIMIT 10")]
-    (count (:rows (query sql :account "wri-01"))) => 10))
+    (count (:rows (query sql "wri-01"))) => 10))
 
 (fact "Check CSV format."
   (let [sql "SELECT x,y,the_geom FROM forma_cdm LIMIT 1"]
-    (query sql :account "wri-01" :format "csv") => "x,y,the_geom\r\n49826,31489,"))
+    (query sql "wri-01" :format "csv") => "x,y,the_geom\r\n49826,31489,"))
 
 (fact "Check GeoJSON format."
   (let [sql "SELECT x,y,the_geom FROM forma_cdm LIMIT 1"]
-    (query sql :account "wri-01" :format "geojson") =>
+    (query sql "wri-01" :format "geojson") =>
     {:type "FeatureCollection",
      :features [{:type "Feature",
                  :properties {:x "49826", :y "31489"},
@@ -24,5 +24,5 @@
 
 (fact "Check JSON format."
   (let [sql "SELECT x,y,the_geom FROM forma_cdm LIMIT 1"]
-    (:rows (query sql :account "wri-01" :format "json")) =>
+    (:rows (query sql "wri-01" :format "json")) =>
     [{:x "49826", :y "31489", :the_geom nil}]))
