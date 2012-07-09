@@ -27,7 +27,7 @@ two rows."
   Example usage:
   (delete-all \"wri-01\" creds \"cartodbclj_test\")"
   [account creds table]
-  (let [sql (space-sep "DELETE FROM" table)]
+  (let [sql (str "DELETE FROM " table)]
     (query sql account :oauth creds :return false)))
 
 (defn insert-rows

@@ -1,5 +1,6 @@
 (ns cartodb.utils
-  (:require [clojure.contrib.str-utils :as s]))
+  (:require [clojure.contrib.str-utils :as s]
+            [clojure.string :as string]))
 
 (defn sqlize
   "Returns a SQL-acceptable argument, depending on the data type.
@@ -10,17 +11,11 @@
    (string? x) (str "'" x "'")
    :else x))
 
-(defn comma-sep
+(defn str-sep
   "Returns a single string that is comprised of an arbitrary number of
   supplied strings, comma separated."
-  [& strs]
-  (apply str (interpose ", " strs)))
-
-(defn space-sep
-  "Returns a single string that is comprised of an arbitrary number of
-  supplied strings, comma separated."
-  [& strs]
-  (apply str (interpose " " strs)))
+  [sep & strs]
+  (apply str (string/join sep strs)))
 
 (defn vec->str
   "Converts a Clojure persistent vector to a list that can be included
@@ -37,7 +32,7 @@
   Example Usage:
   (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])  "
   [table col-keys & rows]
-  (let [col-names (interpose "," (map sqlize col-keys))
-        cols (str "(" (apply str col-names) ")")
+  (let [col-names (apply str-sep "," (map sqlize col-keys))
+        cols (str "(" col-names ")")
         prelude (str "INSERT INTO " table " " cols " VALUES ")]
-    (str prelude (apply comma-sep (map vec->str rows)))))
+    (str prelude (apply str-sep ", " (map vec->str rows)))))
