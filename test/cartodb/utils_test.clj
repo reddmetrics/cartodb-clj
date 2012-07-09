@@ -15,7 +15,7 @@ project."
 (fact "Check row builder for insert into SQL table"
   (let [strs (map vec->str [["a" 1] ["b" 2]])]
     strs => '("('a', 1)" "('b', 2)")
-    (apply comma-sep strs) => "('a', 1), ('b', 2)"))
+    (apply str-sep ", " strs) => "('a', 1), ('b', 2)"))
 
 (fact "Check command for SQL row insert"
   (insert-rows-cmd "table" [:x :y] [2 3] [4 5])
