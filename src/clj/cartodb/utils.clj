@@ -30,7 +30,7 @@
   multiple rows into the supplied table.
 
   Example Usage:
-  (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])  "
+  (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])"
   [table col-keys & rows]
   (let [col-names (apply str-sep "," (map sqlize col-keys))
         cols (str "(" col-names ")")
