@@ -34,7 +34,7 @@
                   :or {api-key nil format "json" host "cartodb.com"
                        oauth-creds nil api-version "v2" return true}}]
   (let [body (if oauth
-               (oauth-execute sql oauth :return return)
+               (oauth-execute sql account oauth :return return)
                (execute sql account api-key format host api-version :return return))]          
     (try
       (if (and
