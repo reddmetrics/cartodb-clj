@@ -19,7 +19,10 @@
   The following queries will clear the CartoDB table, and then insert
   two rows."
   (:use [cartodb.core]
-        [cartodb.utils])) 
+        [cartodb.utils]
+        [clojure.java.io :as io]
+        [clojure-csv.core])
+  (:require [clojure.string :as s]))
 
 (defn delete-all
   "Delete all rows from the specified table.  CAREFUL with this.
@@ -47,3 +50,16 @@
   [partition-size account creds table column-names & rows]
   (map (partial apply insert-rows account creds table column-names)
        (apply partition-all partition-size rows)))
+
+(def creds {:key "ZDpeGyI7VONSckwJJGLnQ2sAtMiC48GTn6aVorGO"
+            :secret "nNYv1t7TDzBPNBMv4aR4yL4n51Tw3apLxdoqiNxV"
+            :password "ARWf1TcO"})
+
+(defn insert-csv
+  [partition-size account creds table path]
+  (with-open [in-file (io/reader path :encoding "UTF-8")]
+    (doall
+     (let [rows (parse-csv in-file :delimiter \tab :strict true)
+           columns (map keyword (nth rows 0))]
+       columns
+       (big-insert partition-size account creds table columns rows)))))
