@@ -1,4 +1,4 @@
-(defproject cartodb-clj "1.1.1"
+(defproject cartodb-clj "1.5.0"
   :description "CartoDB client."
   :source-path "src/clj"
   :resources-path "resources"
