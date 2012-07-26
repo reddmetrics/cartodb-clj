@@ -32,7 +32,7 @@
   "Executes a CartoDB query and return results in specified format."
   [sql account & {:keys [api-key format host oauth api-version return] 
                   :or {api-key nil format "json" host "cartodb.com"
-                       oauth-creds nil api-version "v2" return true}}]
+                       oauth nil api-version "v2" return true}}]
   (let [body (if oauth
                (oauth-execute sql account oauth :return return)
                (execute sql account api-key format host api-version :return return))]          
