@@ -6,3 +6,4 @@
 /checkouts
 /.lein-deps-sum
 /.lein-plugins
+/target
