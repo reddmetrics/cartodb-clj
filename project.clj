@@ -9,7 +9,7 @@
   :source-paths ["src/clj"]
   :profiles {:dev
              {:resource-paths
-              ["/mnt/hgfs/Dropbox/github/reddmetrics/cartodb-clj/dev"],
+              ["dev"],
               :dependencies [[midje "1.4.0"]]}}
   :repositories {"conjars" "http://conjars.org/repo/"}
   :min-lein-version "2.0.0"
