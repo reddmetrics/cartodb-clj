@@ -1,6 +1,6 @@
 # About
 
-This is a simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. 
+This is a very simple Clojure library for the [CartoDB](http://cartodb.com) Maps and SQL API. It includes support for authentication via CartoDB API tokens and OAuth.
 
 ![](http://i.imgur.com/3e4n0.png)
 
