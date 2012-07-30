@@ -1,24 +1,13 @@
 # About
 
-A simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. It's available on [Clojars](https://clojars.org/cartodb-clj) as a dependency for both Leinigen and Maven:
+This is a simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. 
 
-### Leiningen
+![](http://i.imgur.com/3e4n0.png)
 
-```clojure
-[cartodb-clj "1.1.1-SNAPSHOT"]
-```
+# Examples
 
-### Maven
+Here's a few usage examples:
 
-```xml
-<dependency>
-  <groupId>cartodb-clj</groupId>
-  <artifactId>cartodb-clj</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
-</dependency>
-```
-
-# Usage
 
 ```clojure
 (ns example
@@ -47,8 +36,22 @@ A simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. It
 (cdb/query "SELECT * FROM private_table" "user" :oauth creds)
 ```
 
-## License
+# Dependencies
 
-Copyright (C) 2012
+The project is available on [Clojars](https://clojars.org/cartodb-clj) as a dependency for both Leinigen and Maven.
 
-Distributed under the Eclipse Public License, the same as Clojure.
+### Leiningen
+
+```clojure
+[cartodb-clj "1.5.2"]
+```
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>cartodb-clj</groupId>
+  <artifactId>cartodb-clj</artifactId>
+  <version>1.5.2</version>
+</dependency>
+```
