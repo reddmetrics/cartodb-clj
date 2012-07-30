@@ -1,24 +1,13 @@
 # About
 
-A simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. It's available on [Clojars](https://clojars.org/cartodb-clj) as a dependency for both Leinigen and Maven:
+This is a very simple Clojure library for the [CartoDB](http://cartodb.com) Maps and SQL API. It includes support for authentication via CartoDB API tokens and OAuth.
 
-### Leiningen
+![](http://i.imgur.com/3e4n0.png)
 
-```clojure
-[cartodb-clj "1.1.1-SNAPSHOT"]
-```
+# Examples
 
-### Maven
+Here's a few usage examples:
 
-```xml
-<dependency>
-  <groupId>cartodb-clj</groupId>
-  <artifactId>cartodb-clj</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
-</dependency>
-```
-
-# Usage
 
 ```clojure
 (ns example
@@ -47,8 +36,31 @@ A simple Clojure client for [CartoDB](http://cartodb.com) with OAuth support. It
 (cdb/query "SELECT * FROM private_table" "user" :oauth creds)
 ```
 
-## License
+# Dependencies
 
-Copyright (C) 2012
+The project is available on [Clojars](https://clojars.org/cartodb-clj) as a dependency for both Leinigen:
 
-Distributed under the Eclipse Public License, the same as Clojure.
+```clojure
+[cartodb-clj "1.5.2"]
+```
+
+and Maven:
+
+```xml
+<dependency>
+  <groupId>cartodb-clj</groupId>
+  <artifactId>cartodb-clj</artifactId>
+  <version>1.5.2</version>
+</dependency>
+```
+
+# About the software
+
+This software is designed and built by [REDD Metrics](http://www.reddmetrics.com). It's written in the [Clojure](http://clojure.org) programming language.
+
+# Contributors
+
+- Dan Hammer [@danhammer](https://github.com/danhammer)
+- Robin Kraft [@robinkraft](https://github.com/robinkraft)
+- Sam Ritchie [@sritchie](https://github.com/sritchie)
+- Aaron Steele [@eightysteele](https://github.com/eightysteele)
