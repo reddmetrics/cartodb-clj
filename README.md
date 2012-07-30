@@ -1,4 +1,4 @@
-# About
+# What is CartoDB-clj?
 
 This is a very simple Clojure library for the [CartoDB](http://cartodb.com) Maps and SQL API. It includes support for authentication via CartoDB API tokens and OAuth.
 
@@ -55,3 +55,14 @@ The project is available on [Clojars](https://clojars.org/cartodb-clj) as a depe
   <version>1.5.2</version>
 </dependency>
 ```
+
+# About the software
+
+This software is designed and built by [REDD Metrics](http://www.reddmetrics.com). It's written in the [Clojure](http://clojure.org) programming language.
+
+# Contributors
+
+- Dan Hammer [@danhammer](https://github.com/danhammer)
+- Robin Kraft [@robinkraft](https://github.com/robinkraft)
+- Sam Ritchie [@sritchie](https://github.com/sritchie)
+- Aaron Steele [@eightysteele](https://github.com/eightysteele)
