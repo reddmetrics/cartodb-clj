@@ -1,4 +1,4 @@
-# What is CartoDB-clj?
+# About
 
 This is a very simple Clojure library for the [CartoDB](http://cartodb.com) Maps and SQL API. It includes support for authentication via CartoDB API tokens and OAuth.
 
@@ -38,15 +38,13 @@ Here's a few usage examples:
 
 # Dependencies
 
-The project is available on [Clojars](https://clojars.org/cartodb-clj) as a dependency for both Leinigen and Maven.
-
-### Leiningen
+The project is available on [Clojars](https://clojars.org/cartodb-clj) as a dependency for both Leinigen:
 
 ```clojure
 [cartodb-clj "1.5.2"]
 ```
 
-### Maven
+and Maven:
 
 ```xml
 <dependency>
