@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="cartodb-clj : This is a very simple Clojure library for the CartoDB Maps and SQL API. It includes support for authentication via CartoDB API tokens and OAuth." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>cartodb-clj</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/reddmetrics/cartodb-clj">View on GitHub</a>
+
+          <h1 id="project_title">cartodb-clj</h1>
+          <h2 id="project_tagline">This is a very simple Clojure library for the CartoDB Maps and SQL API. It includes support for authentication via CartoDB API tokens and OAuth.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/reddmetrics/cartodb-clj/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/reddmetrics/cartodb-clj/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>About</h1>
+
+<p>This is a very simple Clojure library for the <a href="http://cartodb.com">CartoDB</a> Maps and SQL API. It includes support for authentication via CartoDB API tokens and OAuth.</p>
+
+<p><img src="http://i.imgur.com/3e4n0.png" alt=""></p>
+
+<h1>Examples</h1>
+
+<p>Here's a few usage examples:</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv">example</span>
+  <span class="p">(</span><span class="ss">:use</span> <span class="nv">cartodb.client</span> <span class="ss">:as</span> <span class="nv">cdb</span><span class="p">))</span>
+
+<span class="c1">;; Query a public table and get JSON results:</span>
+<span class="p">(</span><span class="nf">cdb/query</span> <span class="s">"SELECT * FROM table"</span> <span class="s">"user"</span><span class="p">)</span>
+
+<span class="c1">;; Query a public table using API v1 and get JSON results:</span>
+<span class="p">(</span><span class="nf">cdb/query</span> <span class="s">"SELECT * FROM table"</span> <span class="s">"user"</span> <span class="ss">:api-version</span> <span class="s">"v1"</span><span class="p">)</span>
+
+<span class="c1">;; Query a public table and get GeoJSON results:</span>
+<span class="p">(</span><span class="nf">cdb/query</span> <span class="s">"SELECT * FROM table"</span> <span class="s">"user"</span> <span class="ss">:format</span> <span class="s">"geojson"</span><span class="p">)</span>
+
+<span class="c1">;; Query a public table and get CSV results:</span>
+<span class="p">(</span><span class="nf">cdb/query</span> <span class="s">"SELECT * FROM table"</span> <span class="s">"user"</span> <span class="ss">:format</span> <span class="s">"csv"</span><span class="p">)</span>
+
+<span class="c1">;; Query a public table on your own host:</span>
+<span class="p">(</span><span class="nf">cdb/query</span> <span class="s">"SELECT * FROM table"</span> <span class="s">"user"</span> <span class="ss">:host</span> <span class="s">"myserver.com"</span><span class="p">)</span>
+
+<span class="c1">;; Query a private table with OAuth credentials:</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">creds</span> <span class="p">{</span><span class="ss">:key</span> <span class="s">"CARTODB_OAUTH_KEY"</span>
+            <span class="ss">:secret</span> <span class="s">"CARTODB_OAUTH_SECRET"</span>
+            <span class="ss">:password</span> <span class="s">"CARTODB_PASSWORD"</span><span class="p">})</span>
+
+<span class="p">(</span><span class="nf">cdb/query</span> <span class="s">"SELECT * FROM private_table"</span> <span class="s">"user"</span> <span class="ss">:oauth</span> <span class="nv">creds</span><span class="p">)</span>
+</pre></div>
+
+<h1>Dependencies</h1>
+
+<p>The project is available on <a href="https://clojars.org/cartodb-clj">Clojars</a> as a dependency for both Leinigen:</p>
+
+<div class="highlight"><pre><span class="p">[</span><span class="nv">cartodb-clj</span> <span class="s">"1.5.2"</span><span class="p">]</span>
+</pre></div>
+
+<p>and Maven:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>cartodb-clj<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cartodb-clj<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.5.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<h1>About the software</h1>
+
+<p>This software is designed and built by <a href="http://www.reddmetrics.com">REDD Metrics</a>. It's written in the <a href="http://clojure.org">Clojure</a> programming language.</p>
+
+<h1>Contributors</h1>
+
+<ul>
+<li>Dan Hammer <a href="https://github.com/danhammer">@danhammer</a>
+</li>
+<li>Robin Kraft <a href="https://github.com/robinkraft">@robinkraft</a>
+</li>
+<li>Sam Ritchie <a href="https://github.com/sritchie">@sritchie</a>
+</li>
+<li>Aaron Steele <a href="https://github.com/eightysteele">@eightysteele</a>
+</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">cartodb-clj maintained by <a href="https://github.com/reddmetrics">reddmetrics</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
