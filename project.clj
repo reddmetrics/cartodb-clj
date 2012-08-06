@@ -1,6 +1,6 @@
 (defproject cartodb-clj/cartodb-clj "1.5.0" 
-  :dependencies [;;[org.clojure/clojure "1.4.0"]
-                 ;;[org.clojure/data.csv "0.1.2"]
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 [org.clojure/data.csv "0.1.2"]
                  [clojure-csv/clojure-csv "2.0.0-alpha1"]
                  [clj-http "0.4.3"]
                  [cheshire "4.0.0"]

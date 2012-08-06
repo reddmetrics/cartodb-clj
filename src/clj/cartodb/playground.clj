@@ -59,7 +59,7 @@
   [partition-size account creds table path]
   (with-open [in-file (io/reader path :encoding "UTF-8")]
     (doall
-     (let [rows (parse-csv in-file :delimiter \tab :strict true)
+     (let [rows (parse-csv in-file :strict true)
            columns (map keyword (nth rows 0))]
-       columns
+       (prn "cols" columns)
        (big-insert partition-size account creds table columns rows)))))
