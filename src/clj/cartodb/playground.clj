@@ -51,9 +51,7 @@
   (map (partial apply insert-rows account creds table column-names)
        (apply partition-all partition-size rows)))
 
-(def creds {:key "ZDpeGyI7VONSckwJJGLnQ2sAtMiC48GTn6aVorGO"
-            :secret "nNYv1t7TDzBPNBMv4aR4yL4n51Tw3apLxdoqiNxV"
-            :password "ARWf1TcO"})
+
 
 (defn insert-csv
   [partition-size account creds table path]
