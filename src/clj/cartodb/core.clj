@@ -4,7 +4,8 @@
         [cartodb.utils])
   (:require [clj-http.client :as client]
             [cheshire.core :as json])
-  (:import [com.cartodb.impl SecuredCartoDBClient]))
+  (:import [com.cartodb.impl SecuredCartoDBClient ApiKeyCartoDBClient]
+           [com.cartodb CartoDBClientIF]))
 
 (defn- oauth-execute
   "Execute an SQL command with supplied OAuth credentials; returns a
@@ -15,6 +16,14 @@
   (let [client (SecuredCartoDBClient. account password key secret)
         body (.executeQuery client sql)]
     (if (true? return)
+      body)))
+
+(defn- apikey-execute
+  "Execute supplied SQL command using an API Key and return response body."
+  [sql account api-key & {:keys [return] :or {return true}}]
+  (let [client (ApiKeyCartoDBClient. account api-key)
+        body (.executeQuery client sql)]
+    (when return
       body)))
 
 (defn- execute 
@@ -33,9 +42,10 @@
   [sql account & {:keys [api-key format host oauth api-version return] 
                   :or {api-key nil format "json" host "cartodb.com"
                        oauth nil api-version "v2" return true}}]
-  (let [body (if oauth
-               (oauth-execute sql account oauth :return return)
-               (execute sql account api-key format host api-version :return return))]          
+  (let [body (cond 
+              (not= oauth nil) (oauth-execute sql account oauth :return return)
+              (not= api-key nil) (apikey-execute sql account api-key)
+              :else (execute sql account api-key format host api-version :return return))]          
     (try
       (if (and
            (true? return)
