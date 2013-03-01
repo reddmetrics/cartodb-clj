@@ -38,13 +38,24 @@
         prelude (str "INSERT INTO " table " " cols " VALUES ")]
     (str prelude (apply str-sep ", " (map vec->str rows)))))
 
-(defn map->insert-sql
-  "Convert a map to an insert SQL statement where column names are given by map
-   keywords.
+(defn kws-match?
+  "Checks whether the fields in provided maps all have the same keywords."
+  [& maps]
+  (every? #(= (set (reduce concat (map keys maps))) %)
+          (map (comp set keys) maps)))
+
+(defn maps->insert-sql
+  "Convert provided maps to an insert SQL statement where column names are
+   given by map keywords.
+
    Example Usage:
-     (map->insert-sql \"table\" {:age 22 :year 2013})
-     ;=> INSERT INTO table (age, year) VALUES (22, 2013)"
-  [table m]
-  (let [cols (keys m)
-        vals (map m (keys m))]
-    (insert-rows-cmd table cols vals)))
+     (maps->insert-sql \"table\" {:age 22 :year 2013} {:age 21 :year 1999)
+     ;=> \"INSERT INTO table (age, year) VALUES (22, 2013) (21, 1999)\""
+  [table & maps]
+  {:pre [(apply kws-match? maps)]}
+  (let [cols (set (reduce concat (map keys maps)))
+        vals (apply map vector (map #(map % maps) cols))]
+    (apply (partial insert-rows-cmd table cols) vals)))
+
+
+
