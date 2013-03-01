@@ -30,9 +30,21 @@
   multiple rows into the supplied table.
 
   Example Usage:
-  (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])"
+  (insert-rows-cmd \"table\" [:x :y] [2 3] [4 5])
+  ;=> \"INSERT INTO table (x, y) VALUES (2, 3), (4, 5)\""
   [table col-keys & rows]
-  (let [col-names (apply str-sep "," (map sqlize col-keys))
+  (let [col-names (apply str-sep ", " (map sqlize col-keys))
         cols (str "(" col-names ")")
         prelude (str "INSERT INTO " table " " cols " VALUES ")]
     (str prelude (apply str-sep ", " (map vec->str rows)))))
+
+(defn map->insert-sql
+  "Convert a map to an insert SQL statement where column names are given by map
+   keywords.
+   Example Usage:
+     (map->insert-sql \"table\" {:age 22 :year 2013})
+     ;=> INSERT INTO table (age, year) VALUES (22, 2013)"
+  [table m]
+  (let [cols (keys m)
+        vals (map m (keys m))]
+    (insert-rows-cmd table cols vals)))

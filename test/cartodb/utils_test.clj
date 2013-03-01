@@ -19,4 +19,8 @@ project."
 
 (fact "Check command for SQL row insert"
   (insert-rows-cmd "table" [:x :y] [2 3] [4 5])
-  => "INSERT INTO table (x,y) VALUES (2, 3), (4, 5)")
+  => "INSERT INTO table (x, y) VALUES (2, 3), (4, 5)")
+
+(fact "Check map->insert-sql"
+  (map->insert-sql "table" {:age 22 :year 2013}) =>
+  "INSERT INTO table (age, year) VALUES (22, 2013)")
