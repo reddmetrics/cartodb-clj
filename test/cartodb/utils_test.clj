@@ -19,4 +19,15 @@ project."
 
 (fact "Check command for SQL row insert"
   (insert-rows-cmd "table" [:x :y] [2 3] [4 5])
-  => "INSERT INTO table (x,y) VALUES (2, 3), (4, 5)")
+  => "INSERT INTO table (x, y) VALUES (2, 3), (4, 5)")
+
+(fact "Check that `fields-match?` correctly detects maps that with different keywords."
+  (kws-match? {:a 1} {:b 2}) => false
+  (kws-match? {:a 1} {:a 2}) => true)
+
+(fact "Check maps->insert-sql"
+  (maps->insert-sql "table" {:age 22 :year 2013} {:age 21 :year 1999}) =>
+  "INSERT INTO table (age, year) VALUES (22, 2013), (21, 1999)"
+
+  ;; mismatched map fields
+  (maps->insert-sql "table" {:age 22 :year 2013} {:age 21 :year 2012} {:cats 2}) => (throws java.lang.AssertionError))
