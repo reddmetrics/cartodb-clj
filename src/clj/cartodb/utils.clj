@@ -8,7 +8,8 @@
   [x]
   (cond
    (keyword? x) (s/re-sub #"\/" "." (s/re-sub #"^:" "" (str x)))
-   (string? x) (str "'" x "'")
+   (string? x) (str "'" (string/replace x "'" "''") "'")
+   (nil? x) "''"
    :else x))
 
 (defn str-sep
