@@ -7,3 +7,4 @@
 /.lein-deps-sum
 /.lein-plugins
 /target
+/.lein-repl-history

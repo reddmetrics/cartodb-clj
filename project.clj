@@ -1,23 +1,20 @@
-(defproject cartodb-clj/cartodb-clj "1.5.2" 
+(defproject cartodb-clj/cartodb-clj "1.5.4" 
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [clojure-csv/clojure-csv "2.0.0-alpha1"]
                  [clj-http "0.4.3"]
                  [cheshire "4.0.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [org.clojure/data.json "0.1.2"]
-                 [eightysteele/cartodb-java-client "1.0.0"]]
+
+                 ;; Deps for cartodb-java-client
+                 [com.fasterxml.jackson.core/jackson-annotations "2.0.2"]
+                 [com.fasterxml.jackson.core/jackson-core "2.0.2"]
+                 [com.fasterxml.jackson.core/jackson-databind "2.0.2"]
+                 [org.scribe/scribe "1.2.3"]
+                 [commons-io/commons-io "2.1"]
+                 [commons-codec/commons-codec "1.6"]]
   :source-paths ["src/clj"]
-  :profiles {:dev
-             {:resource-paths
-              ["dev"],
-              :dependencies [[midje "1.4.0"]]}}
-  :repositories {"conjars" "http://conjars.org/repo/"}
+  :java-source-paths ["src/jvm"]
   :min-lein-version "2.0.0"
-  :javac-options (:debug "true" :fork "true")
-  :jvm-opts ["-XX:MaxPermSize=128M"
-             "-XX:+UseConcMarkSweepGC"
-             "-Xms1024M"
-             "-Xmx1048M"
-             "-server"]
-  :plugins [[lein-swank "1.4.4"] [lein-clojars "0.9.0"]]
-  :description "CartoDB client.")
+  :description "CartoDB client."
+  :aot [com.cartodb])
